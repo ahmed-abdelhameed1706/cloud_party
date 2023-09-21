@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Cloud Party!</title>
+		{% load static %}
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+			integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
+		/>
+		<link rel="stylesheet" href="{% static 'css/index.css' %}" />
+	</head>
+	<body>
+		<div id="gradient">
+			<div id="main">
+				<div id="app"></div>
+			</div>
+		</div>
+
+		<script src="{% static 'frontend/main.js' %}"></script>
+	</body>
+</html>
