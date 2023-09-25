@@ -45,14 +45,14 @@ class RoomConfig extends Component {
 	}
 
 	authenticateSpotify() {
-		fetch("/spotify/is-authenticated")
+		fetch("/party/spotify/is-authenticated")
 			.then((respone) => respone.json())
 			.then((data) => {
 				this.setState({
 					spotifyAuthenticated: data.status,
 				});
 				if (!data.status) {
-					fetch("/spotify/get-auth-url")
+					fetch("/party/spotify/get-auth-url")
 						.then((respose) => respose.json())
 						.then((data) => {
 							window.location.replace(data.url);
@@ -62,7 +62,7 @@ class RoomConfig extends Component {
 	}
 
 	getCurrentSong() {
-		fetch("/spotify/current-song")
+		fetch("/party/spotify/current-song")
 			.then((respone) => {
 				if (!respone.ok) {
 					return {};
@@ -81,7 +81,11 @@ class RoomConfig extends Component {
 	renderSettingsButton() {
 		return (
 			<Grid item xs={12} align="center">
-				<Button onClick={() => this.updateShowSettings(true)} variant="contained" color="primary">
+				<Button
+					onClick={() => this.updateShowSettings(true)}
+					variant="contained"
+					color="primary"
+				>
 					Settings
 				</Button>
 			</Grid>
@@ -101,7 +105,11 @@ class RoomConfig extends Component {
 					/>
 				</Grid>
 				<Grid item xs={12} align="center">
-					<Button color="secondary" variant="contained" onClick={() => this.updateShowSettings(false)}>
+					<Button
+						color="secondary"
+						variant="contained"
+						onClick={() => this.updateShowSettings(false)}
+					>
 						Close
 					</Button>
 				</Grid>
@@ -110,7 +118,7 @@ class RoomConfig extends Component {
 	}
 
 	getRoomDetails() {
-		fetch("/api/get-room" + "?code=" + this.roomCode)
+		fetch("/party/api/get-room" + "?code=" + this.roomCode)
 			.then((respone) => {
 				if (!respone.ok) {
 					this.props.clearCodeCallback();
@@ -136,9 +144,9 @@ class RoomConfig extends Component {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 		};
-		fetch("/api/leave-room", requestOptions).then((_response) => {
+		fetch("/party/api/leave-room", requestOptions).then((_response) => {
 			this.props.clearCodeCallback();
-			this.props.navigate("/");
+			this.props.navigate("/party");
 		});
 	}
 
@@ -156,7 +164,11 @@ class RoomConfig extends Component {
 				<MusicPlayer {...this.state.song} />
 				{this.state.isHost == true ? this.renderSettingsButton() : null}
 				<Grid item xs={12} align="center">
-					<Button color="secondary" variant="contained" onClick={this.leaveRoomButton}>
+					<Button
+						color="secondary"
+						variant="contained"
+						onClick={this.leaveRoomButton}
+					>
 						Leave Room
 					</Button>
 				</Grid>
@@ -170,7 +182,13 @@ function Room(props) {
 	const clearCodeCallback = props.clearCodeCallback;
 
 	const navigate = useNavigate();
-	return <RoomConfig roomCode={roomCode} clearCodeCallback={clearCodeCallback} navigate={navigate} />;
+	return (
+		<RoomConfig
+			roomCode={roomCode}
+			clearCodeCallback={clearCodeCallback}
+			navigate={navigate}
+		/>
+	);
 }
 
 export default Room;

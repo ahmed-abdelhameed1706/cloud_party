@@ -49,7 +49,7 @@ export default class MusicPlayer extends Component {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 		};
-		fetch("/spotify/skip", requestOptions);
+		fetch("/party/spotify/skip", requestOptions);
 	}
 
 	playSong() {
@@ -57,7 +57,7 @@ export default class MusicPlayer extends Component {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
 		};
-		fetch("/spotify/play", requestOptions);
+		fetch("/party/spotify/play", requestOptions);
 	}
 
 	pauseSong() {
@@ -65,7 +65,7 @@ export default class MusicPlayer extends Component {
 			method: "PUT",
 			headers: { "Content-Type": "application/json" },
 		};
-		fetch("/spotify/pause", requestOptions);
+		fetch("/party/spotify/pause", requestOptions);
 	}
 	render() {
 		const songProgress = (this.props.time / this.props.duration) * 100;
@@ -73,7 +73,11 @@ export default class MusicPlayer extends Component {
 			<Card align="center" className="auto-margin">
 				<Grid container alignItems="center">
 					<Grid item xs={4} align="center">
-						<img src={this.props.image_url} width="100%" height="100%" />
+						<img
+							src={this.props.image_url}
+							width="100%"
+							height="100%"
+						/>
 					</Grid>
 					<Grid item xs={8} align="center">
 						<Typography component="h5" variant="h5">
@@ -85,10 +89,16 @@ export default class MusicPlayer extends Component {
 						<div>
 							<IconButton
 								onClick={() => {
-									this.props.is_playing ? this.pauseSong() : this.playSong();
+									this.props.is_playing
+										? this.pauseSong()
+										: this.playSong();
 								}}
 							>
-								{this.props.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
+								{this.props.is_playing ? (
+									<PauseIcon />
+								) : (
+									<PlayArrowIcon />
+								)}
 							</IconButton>
 							{this.props.votes} / {this.props.votes_required}
 							<IconButton onClick={() => this.skipSong()}>

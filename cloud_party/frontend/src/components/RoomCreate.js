@@ -30,7 +30,8 @@ class RoomCreateConfig extends Component {
 		};
 
 		this.handleCreateRoomClicked = this.handleCreateRoomClicked.bind(this);
-		this.handleGuestsCanPauseChange = this.handleGuestsCanPauseChange.bind(this);
+		this.handleGuestsCanPauseChange =
+			this.handleGuestsCanPauseChange.bind(this);
 		this.handleVotesToSkipChange = this.handleVotesToSkipChange.bind(this);
 		this.handleUpdateRoomClicked = this.handleUpdateRoomClicked.bind(this);
 		this.handleCreateButtons = this.handleCreateButtons.bind(this);
@@ -58,21 +59,30 @@ class RoomCreateConfig extends Component {
 				guests_can_pause: this.state.guests_can_pause,
 			}),
 		};
-		fetch("/api/create-room/", requestOptions)
+		fetch("/party/api/create-room/", requestOptions)
 			.then((respone) => respone.json())
-			.then((data) => this.props.navigate("/room/" + data.code));
+			.then((data) => this.props.navigate("/party/room/" + data.code));
 	}
 
 	handleCreateButtons() {
 		return (
 			<Grid container spacing={1}>
 				<Grid item xs={12} align="center">
-					<Button color="primary" variant="contained" onClick={this.handleCreateRoomClicked}>
+					<Button
+						color="primary"
+						variant="contained"
+						onClick={this.handleCreateRoomClicked}
+					>
 						Create a Room!
 					</Button>
 				</Grid>
 				<Grid item xs={12} align="center">
-					<Button color="secondary" variant="contained" to="/" component={Link}>
+					<Button
+						color="secondary"
+						variant="contained"
+						to="/party"
+						component={Link}
+					>
 						Back
 					</Button>
 				</Grid>
@@ -91,7 +101,7 @@ class RoomCreateConfig extends Component {
 			}),
 		};
 
-		fetch("/api/update-room", requestOptions).then((response) => {
+		fetch("/party/api/update-room", requestOptions).then((response) => {
 			if (response.ok) {
 				this.setState({
 					successMsg: "Room Updated Successfully",
@@ -108,7 +118,11 @@ class RoomCreateConfig extends Component {
 	handleUpdateButtons() {
 		return (
 			<Grid item xs={12} align="center">
-				<Button color="primary" variant="contained" onClick={this.handleUpdateRoomClicked}>
+				<Button
+					color="primary"
+					variant="contained"
+					onClick={this.handleUpdateRoomClicked}
+				>
 					Update Room!
 				</Button>
 			</Grid>
@@ -120,7 +134,12 @@ class RoomCreateConfig extends Component {
 		return (
 			<Grid container spacing={1}>
 				<Grid item xs={12} align="center">
-					<Collapse in={this.state.errorMsg != "" || this.state.successMsg != ""}>
+					<Collapse
+						in={
+							this.state.errorMsg != "" ||
+							this.state.successMsg != ""
+						}
+					>
 						{this.state.successMsg != "" ? (
 							<Alert
 								severity="success"
@@ -154,7 +173,9 @@ class RoomCreateConfig extends Component {
 				<Grid item xs={12} align="center">
 					<FormControl component="fieldset">
 						<FormHelperText>
-							<div align="center">Guest Control Playback State!</div>
+							<div align="center">
+								Guest Control Playback State!
+							</div>
 						</FormHelperText>
 						<RadioGroup
 							row
@@ -192,11 +213,15 @@ class RoomCreateConfig extends Component {
 							onChange={this.handleVotesToSkipChange}
 						/>
 						<FormHelperText>
-							<div align="center">Votes Required To Skip a Song!</div>
+							<div align="center">
+								Votes Required To Skip a Song!
+							</div>
 						</FormHelperText>
 					</FormControl>
 				</Grid>
-				{this.props.update ? this.handleUpdateButtons() : this.handleCreateButtons()}
+				{this.props.update
+					? this.handleUpdateButtons()
+					: this.handleCreateButtons()}
 			</Grid>
 		);
 	}

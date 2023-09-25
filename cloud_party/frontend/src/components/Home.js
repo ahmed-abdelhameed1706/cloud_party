@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import RoomCreate from "./RoomCreate";
 import RoomJoin from "./RoomJoin";
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Link,
+	Navigate,
+} from "react-router-dom";
 import Room from "./Room";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -18,7 +24,7 @@ export default class Home extends Component {
 	}
 
 	async componentDidMount() {
-		fetch("/api/user-in-room")
+		fetch("/party/api/user-in-room")
 			.then((response) => response.json())
 			.then((data) => {
 				this.setState({
@@ -35,7 +41,12 @@ export default class Home extends Component {
 
 	renderHomePage() {
 		if (this.state.roomCode) {
-			return <Navigate to={"/room/" + this.state.roomCode} replace={true} />;
+			return (
+				<Navigate
+					to={"/party/room/" + this.state.roomCode}
+					replace={true}
+				/>
+			);
 		} else {
 			return (
 				<Grid container spacing={3}>
@@ -46,10 +57,18 @@ export default class Home extends Component {
 					</Grid>
 					<Grid item xs={12} align="center">
 						<ButtonGroup disableElevation variant="contained">
-							<Button color="primary" component={Link} to="/join-room">
+							<Button
+								color="primary"
+								component={Link}
+								to="/party/join-room"
+							>
 								Join a Room
 							</Button>
-							<Button color="secondary" component={Link} to="/create-room">
+							<Button
+								color="secondary"
+								component={Link}
+								to="/party/create-room"
+							>
 								Create a Room
 							</Button>
 						</ButtonGroup>
@@ -63,10 +82,27 @@ export default class Home extends Component {
 		return (
 			<Router>
 				<Routes>
-					<Route exact path="/" element={this.renderHomePage()} />
-					<Route exact path="/create-room" element={<RoomCreate />} />
-					<Route exact path="/join-room" element={<RoomJoin />} />
-					<Route path="/room/:roomCode" element={<Room clearCodeCallback={this.clearRoomCode} />} />
+					<Route
+						exact
+						path="/party"
+						element={this.renderHomePage()}
+					/>
+					<Route
+						exact
+						path="party/create-room"
+						element={<RoomCreate />}
+					/>
+					<Route
+						exact
+						path="party/join-room"
+						element={<RoomJoin />}
+					/>
+					<Route
+						path="party/room/:roomCode"
+						element={
+							<Room clearCodeCallback={this.clearRoomCode} />
+						}
+					/>
 				</Routes>
 			</Router>
 		);

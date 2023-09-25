@@ -32,10 +32,10 @@ class RoomJoinConfig extends Component {
 			}),
 		};
 
-		fetch("/api/join-room", requestOption)
+		fetch("/party/api/join-room", requestOption)
 			.then((response) => {
 				if (response.ok) {
-					this.props.navigate("/room/" + this.state.roomCode);
+					this.props.navigate("/party/room/" + this.state.roomCode);
 				} else {
 					this.setState({
 						error: "Invalid Room Code",
@@ -67,12 +67,21 @@ class RoomJoinConfig extends Component {
 					></TextField>
 				</Grid>
 				<Grid item xs={12} align="center" style={{ marginTop: 12 }}>
-					<Button variant="contained" color="primary" onClick={this.joinButtonClicked}>
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={this.joinButtonClicked}
+					>
 						Enter Room
 					</Button>
 				</Grid>
 				<Grid item xs={12} align="center">
-					<Button variant="contained" color="secondary" to="/" component={Link}>
+					<Button
+						variant="contained"
+						color="secondary"
+						to="/party"
+						component={Link}
+					>
 						Back
 					</Button>
 				</Grid>
